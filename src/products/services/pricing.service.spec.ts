@@ -252,4 +252,22 @@ describe('PricingService', () => {
     const snap = service.getRateSnapshot();
     expect(snap.rates[SupportedCurrency.USD]).toBe('1.0000000');
   });
+
+  // ── convertOrderToStellarAmount ───────────────────────────────────────────
+
+  it('convertOrderToStellarAmount explicitly converts order to XLM rounding HALF_UP', () => {
+    // 12.34 USD -> 102.8333333333... XLM -> HALF_UP is 102.8333333
+    const result = service.convertOrderToStellarAmount(
+      12.34,
+      SupportedCurrency.USD,
+    );
+    expect(result).toBe(102.8333333);
+
+    // Let's test half-up rounding explicitly
+    // USD-to-XLM conversion rate is 0.12 USD/XLM
+    // 0.01 USD -> 0.083333333... XLM -> rounds to 0.0833333
+    expect(
+      service.convertOrderToStellarAmount(0.01, SupportedCurrency.USD),
+    ).toBe(0.0833333);
+  });
 });

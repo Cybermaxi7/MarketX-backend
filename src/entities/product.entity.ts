@@ -10,6 +10,7 @@ import {
   Index,
 } from 'typeorm';
 import { Category } from '../categories/entities/category.entity';
+import { ColumnNumericTransformer } from '../common/transformers/column-numeric.transformer';
 
 export enum ProductStatus {
   DRAFT = 'draft',
@@ -42,7 +43,12 @@ export class Product {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   @Index()
   price: number;
 
