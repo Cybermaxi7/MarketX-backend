@@ -170,7 +170,7 @@ export class EscrowService {
       await this.ensureAccountExists(destinationAddress);
 
       // XLM is the native asset; amount must be a string for the Stellar SDK
-      const releaseAmount = Number(escrow.amount).toFixed(7);
+      const releaseAmount = escrow.amount.toFixed(7);
 
       const transaction = new StellarSdk.TransactionBuilder(escrowAccount, {
         fee: StellarSdk.BASE_FEE,

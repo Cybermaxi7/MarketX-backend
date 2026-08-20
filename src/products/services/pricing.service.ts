@@ -364,4 +364,17 @@ export class PricingService {
 
     return this.fromMinorUnitsToDecimalString(targetMinor, targetCurrency);
   }
+
+  /**
+   * Explicitly converts an order amount (e.g. USD, EUR with 2 decimal places)
+   * to a Stellar (XLM) amount (with 7 decimal places).
+   *
+   * Rounding direction: HALF_UP
+   */
+  convertOrderToStellarAmount(
+    amount: number,
+    orderCurrency: SupportedCurrency,
+  ): number {
+    return this.convertAmount(amount, orderCurrency, SupportedCurrency.XLM);
+  }
 }

@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Users } from '../users/users.entity';
 import { Order } from './order.entity';
+import { ColumnNumericTransformer } from '../common/transformers/column-numeric.transformer';
 
 export enum TransactionStatus {
   PENDING = 'pending',
@@ -47,7 +48,12 @@ export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'decimal', precision: 15, scale: 7 })
+  @Column({
+    type: 'decimal',
+    precision: 15,
+    scale: 7,
+    transformer: new ColumnNumericTransformer(),
+  })
   @Index()
   amount: number;
 
@@ -104,7 +110,13 @@ export class Transaction {
   @Column({ nullable: true, length: 64 })
   stellarHash?: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 7, default: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 7,
+    default: 0,
+    transformer: new ColumnNumericTransformer(),
+  })
   feeAmount: number;
 
   @Column({ length: 3, default: 'USD' })

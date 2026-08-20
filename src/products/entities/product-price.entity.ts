@@ -6,6 +6,7 @@ import {
   Column,
 } from 'typeorm';
 import { SupportedCurrency } from '../services/pricing.service';
+import { ColumnNumericTransformer } from '../../common/transformers/column-numeric.transformer';
 
 @Entity('product_prices')
 @Index(['productId', 'createdAt'])
@@ -17,7 +18,12 @@ export class ProductPriceEntity {
   @Index()
   productId: string;
 
-  @Column({ type: 'decimal', precision: 20, scale: 7 })
+  @Column({
+    type: 'decimal',
+    precision: 20,
+    scale: 7,
+    transformer: new ColumnNumericTransformer(),
+  })
   // Human-readable decimal in DB
   basePrice: number;
 

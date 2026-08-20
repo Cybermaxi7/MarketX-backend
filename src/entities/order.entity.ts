@@ -8,6 +8,7 @@ import {
   Index,
 } from 'typeorm';
 import { SupportedCurrency } from '../products/services/pricing.service';
+import { ColumnNumericTransformer } from '../common/transformers/column-numeric.transformer';
 
 export enum OrderStatus {
   PENDING = 'pending',
@@ -49,17 +50,40 @@ export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2 })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
   @Index()
   totalAmount: number;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    default: 0,
+    transformer: new ColumnNumericTransformer(),
+  })
   taxAmount: number;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    default: 0,
+    transformer: new ColumnNumericTransformer(),
+  })
   shippingCost: number;
 
-  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    default: 0,
+    transformer: new ColumnNumericTransformer(),
+  })
   discountAmount: number;
 
   @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
@@ -97,6 +121,7 @@ export class Order {
     precision: 12,
     scale: 2,
     default: 0,
+    transformer: new ColumnNumericTransformer(),
   })
   releasedAmount: number;
 
@@ -106,6 +131,7 @@ export class Order {
     precision: 12,
     scale: 2,
     default: 0,
+    transformer: new ColumnNumericTransformer(),
   })
   remainingAmount: number;
 

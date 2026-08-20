@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   Index,
 } from 'typeorm';
+import { ColumnNumericTransformer } from '../common/transformers/column-numeric.transformer';
 
 export enum EscrowStatus {
   PENDING = 'pending',
@@ -20,7 +21,12 @@ export class Escrow {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'decimal', precision: 12, scale: 7 })
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 7,
+    transformer: new ColumnNumericTransformer(),
+  })
   amount: number;
 
   /**

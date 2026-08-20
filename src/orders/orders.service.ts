@@ -80,7 +80,7 @@ export class OrdersService {
           );
         }
 
-        const price = Number(product.price);
+        const price = product.convertedPrice ?? Number(product.price);
         const subtotal = price * item.quantity;
 
         return {
@@ -89,7 +89,7 @@ export class OrdersService {
           quantity: item.quantity,
           price,
           subtotal,
-          priceCurrency: product.currency,
+          priceCurrency: product.convertedCurrency ?? product.currency,
         };
       });
 
@@ -246,7 +246,7 @@ export class OrdersService {
           updatedOrder.id,
           updatedOrder.buyerId,
           `ORD-${updatedOrder.id.substring(0, 8)}`,
-          Number(updatedOrder.totalAmount),
+          updatedOrder.totalAmount,
         ),
       );
     }

@@ -109,7 +109,7 @@ export class StellarWebhookProcessor {
                     transaction.id,
                     order.buyerId,
                     order.id,
-                    Number(transaction.amount),
+                    transaction.amount,
                     transaction.currency,
                     transactionHash,
                   ),

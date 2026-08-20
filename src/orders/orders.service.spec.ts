@@ -512,7 +512,7 @@ describe('OrdersService', () => {
         orderId: order.id,
         userId: order.buyerId,
         orderNumber: `ORD-${order.id.substring(0, 8)}`,
-        totalAmount: Number(order.totalAmount),
+        totalAmount: order.totalAmount,
       });
     });
 
